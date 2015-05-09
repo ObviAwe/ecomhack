@@ -1,6 +1,6 @@
 package com.ecomhack.api;
 
-import com.ecomhack.product.AbstractProduct;
+import com.ecomhack.product.Product;
 
 import java.util.List;
 
@@ -9,6 +9,6 @@ import java.util.List;
  */
 public interface Storage {
 
-    public AbstractProduct getProducts(List<AbstractProduct> products);
+    public Product getProduct(List<Product> products);
 
 }

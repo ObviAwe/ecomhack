@@ -5,15 +5,48 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
 
 public class MainActivity extends ActionBarActivity {
-    private OnSwipeTouchListener stl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        stl = new OnSwipeTouchListener( getApplicationContext() );
+        this.httpPostAlter();
+    }
+
+    private void httpPostAlter() {
+        String response = "";
+
+        URL url;
+        try {
+            url = new URL("https://auth.sphere.io/oauth/token?grant_type=client_credentials&scope=manage_project:ecomhack-15-002-83");
+            HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Authorization", "Basic emVQcUJiSXRmMU4tTXBKNng0a1dzOGZ4Ok5FU28teEZoUXFiNXE5N2R3blprMVpfcVVEYVNuMEZG");
+            BufferedReader input = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+            String inputLine;
+            while ((inputLine = input.readLine()) != null)
+                response += inputLine;
+            input.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(response);
     }
 
 

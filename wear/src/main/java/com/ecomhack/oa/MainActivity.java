@@ -2,6 +2,7 @@ package com.ecomhack.oa;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
 
@@ -20,5 +21,9 @@ public class MainActivity extends Activity {
                 mTextView = (TextView) stub.findViewById(R.id.text);
             }
         });
+
+        StrictMode.ThreadPolicy policy = new StrictMode.
+                ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(policy);
     }
 }
